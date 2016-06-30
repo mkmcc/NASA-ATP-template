@@ -1,0 +1,901 @@
+\documentclass[12pt]{article}
+
+\usepackage{microtype}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xspace}
+\usepackage{paralist}
+\usepackage{amsmath}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[final]{pdfpages}
+
+\usepackage{ragged2e}
+\usepackage[format=plain,justification=RaggedRight,font=footnotesize]{caption}
+
+\usepackage[style=plain,floatrowsep=qquad]{floatrow}
+
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0em}
+
+\usepackage{sectsty}
+\allsectionsfont{\raggedright\bfseries\large}
+\subsectionfont{\raggedright\normalfont\itshape\normalsize}
+
+\usepackage[compact]{titlesec}
+
+\usepackage{aas_macros}
+\usepackage{amsmath}
+
+\usepackage[charter]{mathdesign}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+\hypersetup{pdfpagemode={UseOutlines},
+  bookmarksopen,
+  colorlinks,
+  linkcolor={Black},
+  citecolor={Black},
+  urlcolor={RoyalBlue}}
+
+\bibliographystyle{apj}
+
+\newcommand*{\eg}{{e.\,g.,}\xspace}
+\newcommand*{\ie}{{i.\,e.,}\xspace}
+
+\newcommand{\todo}[1]{{\color{red} TODO: #1}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% fix a bug in bibtex: only the year in author-year should be a link
+%%
+\RequirePackage{etoolbox}
+\makeatletter
+
+% Patch case where name and year have no delimiter
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{\NAT@nmfmt{\NAT@nm}\NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}\NAT@hyper@{\NAT@date}}
+  {}% Do nothing if patch works
+  {}% Do nothing if patch fails
+
+% Patch case where name and year have basic delimiter
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@aysep\NAT@spacechar}{\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@aysep\NAT@spacechar%
+   \NAT@hyper@{\NAT@date}}
+  {}% Do nothing if patch works
+  {}% Do nothing if patch fails
+
+% Patch case where name and year are separated by a prenote
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi}%
+       {\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi%
+   \NAT@hyper@{\NAT@date}}
+  {}% Do nothing if patch works
+  {}% Do nothing if patch fails
+
+\makeatother
+%% end bugfix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Alter some LaTeX defaults for better treatment of figures:
+% See p.105 of "TeX Unbound" for suggested values.
+% See pp. 199-200 of Lamport's "LaTeX" book for details.
+% General parameters, for ALL pages:
+\renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+\renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+%
+% Parameters for TEXT pages (not float pages):
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}             % 2 may work better
+\setcounter{dbltopnumber}{2}            % for 2-column pages
+\renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+\renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+%
+% Parameters for FLOAT pages (not text pages):
+\renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+%
+% N.B.: floatpagefraction MUST be less than topfraction !!
+\renewcommand{\dblfloatpagefraction}{0.7} % require fuller float pages
+
+
+\renewcommand*{\maketitle}{
+\begin{center}
+  \begingroup
+  \Large
+  \textbf{Your Title} \\*[0.5\baselineskip]
+  \normalsize
+\begin{tabular}{r@{:\quad}lr}
+          PI & A Person       & A Place       \\
+        Co-I & Another Person & Another Place
+\end{tabular}
+  \endgroup
+\end{center}
+}
+
+
+\begin{document}
+\raggedbottom
+\fontsize{12}{16}\selectfont
+
+\pagenumbering{roman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TABLE OF CONTENTS
+
+\maketitle
+
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUMMARY
+
+\clearpage
+
+\addcontentsline{toc}{section}{Summary}
+
+\maketitle
+
+2.3.3 Proposal Summary (abstract)
+
+Both electronic submittal systems require the PI to prepare a Proposal
+Summary. The Proposal Summary should provide an overview of the
+proposed investigation that is suitable for release through a publicly
+accessible archive should the proposal be selected. The proposal
+summary (or abstract) should be concise, should not exceed 4000
+characters in length, and should not contain any special characters or
+formatting. Note that, while Grants.gov does not impose a limit on the
+length of the proposal summary, it will be truncated when the proposal
+is transmitted from Grants.gov to NASA. Grants.gov users must use a
+writeable pdf form (downloadable from grants.gov) named
+ProposalSummary.pdf. This form restricts the Proposal Summary document
+to 4000 characters or less.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Scientific/Technical/Management Section
+
+\cleardoublepage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\addcontentsline{toc}{section}{Scientific/Technical/Management}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+
+%% title
+\maketitle
+
+2.3.6 Scientific/Technical/Management Section
+
+As the main body of the proposal, this section must cover the
+following topics all within the specified page limit. Unless specified
+otherwise in the FA, the limit is 15 pages using the default values
+given in Section 2.3.1:
+
+- The objectives and expected significance of the proposed research,
+  especially as related to the objectives given in the FA;
+
+- The technical approach and methodology to be employed in conducting
+  the proposed research, including a description of any hardware
+  proposed to be built in order to carry out the research, as well as
+  any special facilities of the proposing organization(s) and/or
+  capabilities of the proposer(s) that would be used for carrying out
+  the work. (Note: ref. also Section 2.3.10(a) concerning the
+  description of critical existing equipment needed for carrying out
+  the proposed research and the Instructions for the Budget
+  Justification in Section 2.3.10 for further discussion of costing
+  details needed for proposals involving significant hardware,
+  software, and/or ground systems development, and, as may be allowed
+  by an FA, proposals for flight instruments);
+
+- The perceived impact of the proposed work to the state of knowledge
+  in the field and, if the proposal is offered as a direct successor
+  to an existing NASA award, how the proposed work is expected to
+  build on and otherwise extend previous accomplishments supported by
+  NASA;
+
+- The relevance of the proposed work to past, present, and/or future
+  NASA programs and interests or to the specific objectives given in
+  the FA;
+
+- A general plan of work, including anticipated key milestones for
+  accomplishments, the management structure for the proposal
+  personnel, any substantial collaboration(s) and/or use of
+  consultant(s) that is(are) proposed to complete the investigation;
+  and a description of the expected contribution to the proposed
+  effort by the PI and each person as identified in one of the
+  additional categories in Section 1.4.2, regardless of whether or not
+  they derive support from the proposed budget.
+
+- To facilitate data sharing where appropriate, as part of their
+  technical proposal, the proposer shall provide a data-sharing plan
+  and shall provide evidence (if any) of any past data- sharing
+  practices.
+
+The Scientific/Technical/Management Section may contain illustrations
+and figures that amplify and demonstrate key points of the proposal
+(including milestone schedules, as appropriate). However, they must be
+of an easily viewed size and have self-contained captions that do not
+contain critical information not provided elsewhere in the proposal.
+
+(in order for bibtex to work, i have to cite something\ldots here you
+go: \citealt{Einstein1936})
+
+
+\section{Methodology}
+\label{sec:method}
+%%
+The technical approach and methodology to be employed in conducting
+the proposed research, including a description of any hardware
+proposed to be built in order to carry out the research, as well as
+any special facilities of the proposing organization(s) and/or
+capabilities of the proposer(s) that would be used for carrying out
+the work. (Note: ref. also Section 2.3.10(a) concerning the
+description of critical existing equipment needed for carrying out the
+proposed research and the Instructions for the Budget Justification in
+Section 2.3.10 for further discussion of costing details needed for
+proposals involving significant hardware, software, and/or ground
+systems development, and, as may be allowed by an FA, proposals for
+flight instruments);
+
+
+\section{Management Plan}
+\label{sec:management}
+%%
+A general plan of work, including anticipated key milestones for
+accomplishments, the management structure for the proposal personnel,
+any substantial collaboration(s) and/or use of consultant(s) that
+is(are) proposed to complete the investigation; and a description of
+the expected contribution to the proposed effort by the PI and each
+person as identified in one of the additional categories in Section
+1.4.2, regardless of whether or not they derive support from the
+proposed budget.
+
+
+\section{Perceived Impact and Relevance to the NASA Science Mission Directorate}
+\label{sec:relevance}
+%%
+The perceived impact of the proposed work to the state of knowledge in
+the field and, if the proposal is offered as a direct successor to an
+existing NASA award, how the proposed work is expected to build on and
+otherwise extend previous accomplishments supported by NASA;
+
+The relevance of the proposed work to past, present, and/or future
+NASA programs and interests or to the specific objectives given in the
+FA;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DATA MANAGEMENT PLAN
+
+\cleardoublepage
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+
+\section*{Data Management Plan}
+\addcontentsline{toc}{section}{Data Management Plan}
+%%
+To facilitate data sharing where appropriate, as part of their
+technical proposal, the proposer shall provide a data-sharing plan and
+shall provide evidence (if any) of any past data- sharing practices.
+
+4000 characters.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% REFERENCES AND CITATIONS
+
+\cleardoublepage
+
+\addcontentsline{toc}{section}{References and Citations}
+
+\bibliography{proposal}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BIBLIOGRAPHICAL SKETCHES
+
+\cleardoublepage
+
+\section*{Biographical Sketches}
+\addcontentsline{toc}{section}{Biographical Sketches}
+%
+2.3.8 Biographical Sketch(s) [Ref.: Appendix B: Part (c)(6)]
+
+The PI (and Co-PI) must include a biographical sketch (not to exceed
+two pages) that includes his/her professional experiences and
+positions and a bibliography of recent publications, especially those
+relevant to the proposed investigation. A one-page sketch for each Co-
+Investigator must also be included (Note: Any Co-I also serving in one
+of the three special Co-I categories defined in Section 1.4.2 may use
+the same two-page limit as for the PI). For the PI and any Co-Is who
+are required to provide Current and Pending Support information
+(ref. Section 2.3.8), the biographical sketch must include a
+description of scientific, technical and management performance on
+relevant prior research efforts. Those participants who will play
+critical management or technical roles in the proposed investigation
+should demonstrate that their qualifications, capabilities, and
+experience are appropriate to provide confidence that the proposed
+objectives will be achieved.
+
+\cleardoublepage
+\includepdf[pages={1,2}]{cvs/cv.pdf}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CURRENT AND PENDING SUPPORT
+
+\cleardoublepage
+
+\section*{Current and Pending Support}
+\addcontentsline{toc}{section}{Current and Pending Support}
+%%
+2.3.9 Current and Pending Support [Ref.: Appendix B, Part (c)(10)]
+
+Information must be provided for all ongoing and pending projects and
+proposals that involve the proposing PI. This information is also
+required for any Co-Is who are proposed to perform a significant share
+(>10 percent) of the proposed work.
+
+All current project support from whatever source (e.g., Federal,
+State, local or foreign government agencies, public or private
+foundations, industrial or other commercial organizations) must be
+listed. This information must also be provided for all pending
+proposals already submitted or submitted concurrently. Do not include
+the current proposal on the list of pending proposals unless it also
+has been submitted elsewhere.
+
+All projects or activities requiring a portion of the investigators'
+time during the period of the proposed effort must be included, even
+if they receive no salary support from the project(s). For the entire
+period of the proposed award the total amount received by that
+investigator (including indirect costs) or the amount per year if
+uniform (e.g., \$50 K/year) must be shown as well as the number of
+person-months per year to be devoted to the project for each year,
+regardless of source of support.
+
+Specifically, for the PI and any Co-Is who are proposed to perform a
+significant share (>10\%) of the person's time, provide the following
+information:
+\begin{itemize}
+\item Title of award or project title;
+\item Name of PI on award;
+\item Program name (if appropriate) and sponsoring agency or organization,
+  including a point of contact with his/her telephone number and email
+  address;
+\item Performance period;
+\item Total amount received by that investigator (including indirect
+  costs) or the amount per year if uniform (e.g., \$50 k/year); and
+\item Commitment by PI or Co-I in terms of person-months per year for each
+  year.
+\end{itemize}
+
+For pending research proposals involving substantially the same kind
+of research as that being proposed to NASA in this proposal, the
+proposing PI must notify the NASA Program Officer identified for the
+FA immediately of any successful proposals that are awarded any time
+after the proposal due date and until the time that NASA's selections
+are announced.  Current and pending support is not required for
+student or foreign Co-Is.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% STATEMENTS OF COMMITMENT AND LETTERS OF SUPPORT
+
+\cleardoublepage
+
+\section*{Statements of Commitment and Letters of Support}
+\addcontentsline{toc}{section}{Statements of Commitment and Letters of Support}
+%%
+2.3.10 Statements of Commitment and Letters of Support
+
+Every Co-PI, Co-I, and Collaborator (ref. definitions in Section
+1.4.2) identified as a participant on the proposal's cover page and/or
+in the proposal's Scientific/Technical/Management Section must
+acknowledge his/her intended participation in the proposed effort.
+
+The NSPIRES proposal management system allows for participants named
+on the Proposal Cover Page to acknowledge electronically a statement
+of commitment. Although we prefer all team members to confirm
+participation via NSPIRES, if that is not possible the inclusion of a
+statement of commitment in the proposal as set out in the example
+below may be permitted instead.
+
+The Summary of Solicitation for an FA may specify that signed
+statements of commitment must be included within the proposal. Also,
+any proposals submitted via Grants.gov must include signed statements
+of commitment in the proposal. In the case of more than one Co-PI,
+Co-I or Collaborator at the same institution, a single statement
+signed by all participants may be submitted. In any case, each
+statement must be addressed to the PI, may be a facsimile of an
+original statement or the copy of an email (the latter must have
+sufficient information to unambiguously identify the sender), and is
+required even if the Co-PI, Co-I or Collaborator is from the proposing
+organization. An example of such a statement follows:
+
+``I (we) acknowledge that I (we) am (are) identified by name as
+Co-Principal Investigator(s), Co-Investigator(s) [and/or
+Collaborator(s)] to the investigation, entitled <name of proposal>,
+that is submitted by <name of Principal Investigator> to the NASA
+funding announcement<alpha-numeric identifier>, and that I (we) intend
+to carry out all responsibilities identified for me (us) in this
+proposal. I (we) understand that the extent and justification of my
+(our) participation as stated in this proposal will be considered
+during peer review in determining in part the merits of this
+proposal. I (we) have read the entire proposal, including the
+management plan and budget, and I (we) agree that the proposal
+correctly describes my (our) commitment to the proposed
+investigation.'' For the purposes of conducting work for this
+investigation, my participating organization is <<insert name of
+organization>>.''
+
+In addition, a letter of support is required from the owner of any
+facility or resource that is not under the PI's direct control,
+acknowledging that the facility or resource is available for the
+proposed use during the proposed period. For Government facilities,
+the availability of thefacility to users is often stated in the
+facilities documentation or web page. Where the availability is not
+publicly stated, or where the proposed use goes beyond the publicly
+stated availability, a statement, signed by the appropriate Government
+official at the facility verifying that it will be available for the
+required effort, is sufficient.
+
+Letters of support do not include ``letters of affirmation'' (i.e.,
+letters that endorse the value or merit of a proposal). NASA neither
+solicits nor evaluates such endorsements for proposals. The value of a
+proposal is determined by peer review. If endorsements are submitted,
+they may not be submitted as an appendix. They must be included as
+part of the proposal and must be included within the required page
+limitations even though they will not be considered in the evaluation
+of the proposal.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BUDGET JUSTIFICATION
+
+\cleardoublepage
+
+\section*{Budget Justification}
+\addcontentsline{toc}{section}{Budget Justification}
+%%
+2.3.11 Budget Justification: Narrative and Details [Ref.: Appendix B, Part (c)(8)]
+
+Each proposal shall provide a budget justification for each year of
+the proposed effort and shall be supported by appropriate narrative
+material and budget details in compliance with the following
+instructions.
+
+Failure to adequately provide detailed cost data will require NASA
+procurement personnel to contact the proposing organization for the
+required information. All proposers are required to submit a
+thoroughly detailed cost breakdown. NASA procurement personnel must be
+able to determine that all proposed costs are allowable, allocable,
+and reasonable. All proposed costs must be directly related to the
+approved project and scope of work. A detailed budget will facilitate
+this cost analysis. Reference Grant and Cooperative Agreement Manual
+(GCAM) located at the following URL:
+\url{https://prod.nais.nasa.gov/pub/pub_library/srba/index.html}
+
+2.3.11(a) Required Budget Narrative (Including Personnel and Work
+Effort and Facilities and Equipment)
+
+The Budget Narrative should clearly state the type of award instrument
+the proposer anticipates receiving if selected for award (i.e.,
+contract, grant or cooperative agreement). NASA will, however, make
+the final decision on the award instrument used (reference D.1.2) and
+that decision may result in the need for additional information
+regarding requested items of costs
+
+The Budget Narrative must describe the basis of estimate and rationale
+for each proposed component of cost, including direct labor,
+subcontracts/subawards, consultants, other direct costs (including
+travel), and facilities and equipment. The proposer must provide
+adequate budget detail to support estimates. The proposer must state
+the source of cost estimates (e.g., based on quote, on previous
+purchases for same or similar item(s), cost data obtained from
+internet research, etc.) including the company name and/or URL and
+date if known, but need not include the actual price quote or screen
+captures from the web. The proposer must describe in detail the
+purpose of any proposed travel in relation to the award and provide
+the basis of estimate, including information or assumptions on
+destination, number of travelers, number of days, conference fees, air
+fare, per diem, miscellaneous expenses, etc. If destinations are not
+known, the proposer should, for estimating purposes, make reasonable
+assumptions about the potential destination and use historical cost
+data based on previous trips taken or conferences attended. Any
+conference, for which travel funding is requested, must be directly
+related to the project.
+
+A required element of the Budget Narrative is a table of Personnel and
+Work Effort, summarizing the work effort required to perform the
+proposed investigation. Proposals for contracts must include a table
+of work effort in the budget narrative section, before the section on
+facility costs. Proposals for grants or cooperative agreements are not
+required to submit the table of work effort in the budget narrative
+section, see section 2.3.12 for more details. The table must have the
+names and/or titles of all personnel necessary to perform the proposed
+effort, regardless of whether those individuals require funding. For
+each individual, list the planned work commitment to be funded by
+NASA, per period in fractions of a work year. In addition, include
+planned work commitment not funded by NASA, if applicable. Where names
+are not known, include the position, such as postdoc or technician.
+
+The final element of the Budget Narrative is a description of any
+required facilities and equipment. This section should describe any
+existing facilities and equipment that are required for the proposed
+investigation. It must explain the need for items costing more than
+\$5,000 and describe the basis for estimated cost (i.e., competitive
+quotes were obtained, justification for sole source purchase, proposed
+cost based on previous purchases for same or similar item(s), cost
+data obtained from internet research, etc.).
+
+Proposed costs for purchased facilities, tooling, or equipment must be
+entered in the Proposal Cover Page and included in the Budget Details
+(ref. Section 2.3.10(b)). Proposals submitted via Grants.gov should
+include a single Facilities and Equipment section as a separate PDF
+document; it should be uploaded to the Grants.gov application as the
+``Facilities and Other Resources'' document. ``Equipment'' document should
+not be uploaded to Grants.gov.
+
+There should be direct and obvious correlation between the items
+described in the Budget Narrative, those given in the Budget Details,
+and the figures entered in the Proposal Cover Page/Grants.gov forms.
+
+2.3.11 (b) Required Budget Details
+
+In addition to the Budget Narrative, proposers are required to include
+detailed budgets, including detailed subcontract/subaward budgets, in
+a format of their own choosing. Regardless of format chosen, the
+following information must be included in the Budget Details.
+
+1. Direct Labor (salaries, wages, and fringe benefits): List the
+   number and titles of personnel, amounts of time to be devoted to
+   the grant (level of effort for each position), and rates of
+   pay. The annual salary should be clearly noted for each
+   position. Labor should be clearly broken out from fringe
+   benefits. The fringe benefit rate/percent should be clearly noted
+   on the budget for each labor category for ease of review.
+
+Important Note: All Recipients are reminded that in accordance with 2
+CFR \S 200.414, NASA is required to apply the applicable negotiated
+rate for all grants awarded to the recipient. If fringe benefits
+comprise part of the applicable negotiated rate, NASA will use this
+rate for all grants and cooperative agreements awarded to the
+recipient. . If the prosing organization does not have negotiated rate
+for fringe benefits, recipients should use their rates for fringe
+benefits that is applied to funds from all funding sources.
+
+
+
+2. Other
+Direct Costs:
+
+a. Subcontracts/Subawards: Attachments shall describe the work to be
+subcontracted/subawarded, estimated amount, recipient (if known), and
+the reason for subcontracting (e.g., uniquely qualified
+co-investigator is located at another institution from the proposing
+institution). Itemized budgets are required for all
+subcontracts/subawards, regardless of dollar value.
+
+b. Consultants: Identify consultants to be used and provide the amount
+of time they will spend on the project and rates of pay to include
+annual salary, overhead, etc.
+
+c. Equipment: List all facilities and equipment items
+separately. General-purpose equipment (i.e., personal computers and/or
+commercial software) valued at or above \$5,000 is not allowable as a
+direct cost unless specifically approved by the NASA Award
+Officer. Any requested general-purpose equipment purchase valued at or
+above \$5,000 to be made as a direct charge under this award must
+include the equipment description, an explanation of how it will be
+used in the conduct of the research proposed, and a written
+certification that the equipment will be used exclusively for the
+proposed research activities and not for general business or
+administrative purposes. [Ref.: Appendix B, Part (c)(7)].
+
+d. Supplies: Provide general categories of needed supplies, the method
+of acquisition, and the estimated cost.
+
+e. Travel: Provide a detailed breakout of costs for any proposed
+travel. Detailed budget data shall include the following:
+
+- Number of people and number of days - Departure/Arrival cities -
+  Airfare - Per diem
+
+- Car rental - Conference fees (if applicable) - Miscellaneous Costs
+  (i.e., car rental fuel, airport parking, tolls, etc.).
+
+Note: Every effort should be made to accurately estimate and detail
+travel costs. Under Federal procurement regulations, missing or
+minimum data is not acceptable for budget evaluation and award
+purposes. If destinations are not known at time of proposal
+preparation, then reasonable assumptions about the potential
+destination and historical data for previous trips may be used but the
+preparer is still required to include the same amount of detail listed
+above. That is, use reasonable assumptions and historical data for
+destinations and length of stay, however, use current pricing for the
+applicable categories listed above. If adequate budget detail is not
+submitted with the proposal then this will delay your award.
+
+f. Other: List and enter the total of direct costs not covered by 2a
+through 2e.
+
+
+
+3. Facilities and Administrative (F\&A)/Indirect Costs: Identify F\&A
+   cost rate(s) and base(s) as approved by the cognizant Federal
+   agency, including the effective period of the rate. Provide the
+   name, address, and telephone number of the Federal agency official
+   having cognizance. If approved audited rates are not available,
+   provide the computational basis for the indirect expense pool and
+   the corresponding allocation base for each proposed rate. For
+   grants and cooperative agreements(only): Any non-Federal entity
+   that has never received a negotiated indirect cost rate, except for
+   these non-Federal entities described in Appendix VII to Part
+   200-paragraph D.1.b, may elect to charge a de minimis rate of 10%
+   of modified total direct costs (MTDC) which may be used
+   indefinitely.
+
+Reference Important Note in paragraph 2.3.10(b)1. above: All budgets
+shall be prepared using the most current ``approved'' indirect rates for
+estimating and award purposes. proposers shall not use unapproved
+``future'' rates. Failure to do so will cause a delay in receiving your
+award as the NASA Procurement Office will then have to come back to
+the proposer with a request to reduce the proposed rates to the most
+current ``approved'' rates. Proposers may charge less than the approved
+current rates but shall not propose more in anticipation of the rates
+changing in the future. However, should the negotiated rate change
+throughout the period of performance that grantee is required to apply
+that changed rate to any direct funds expended during that time frame
+stated on the changed agreement.
+
+
+4. Other Applicable Costs: Enter total explaining the need for each
+   item and itemized lists detailing expenses within major budget
+   categories. Also enter here the required funding for any Co-Is who
+   cannot be funded through the PI award (e.g. because the PI is at a
+   non- Government organization and a Co-I is at a U.S. Government
+   organization) (see Section 2.3.10(c)(ii)(a)).
+
+5. Subtotal-Estimated Costs: Enter the sum of items 1 through 4.
+
+Less: Proposed Cost Sharing (if any): Neither NSPIRES nor Grants.gov
+allows for notating cost sharing on the standardized budget
+form. However, if cost sharing is proposed, it should be discussed in
+detail in the Budget Narrative. Further, if cost sharing is based on
+specific cost items, identify each item and amount in the Budget
+Detail with a full explanation provided in the Budget Narrative.
+
+If an institution of higher education, hospital, other non-profit
+organization wants to receive a grant or cooperative agreement, cost
+sharing may not be required (review FA to see if cost is
+required). The award would be made in accordance with the requirements
+of 2 CFR 1800 and the Grants and Cooperative Agreement Manual. These
+two documents also applicable to NASA grants and cooperative
+agreements awarded to commercial firms which do not involve cost
+sharing. This does not prohibit voluntary cost sharing. NASA may
+accept cost sharing from any type of organization if it is voluntarily
+offered. Reference 2 CFR \S200.306 (Cost Sharing or matching). If a
+commercial organization wants to receive a grant or cooperative
+agreement, cost sharing is required unless the commercial organization
+can demonstrate that it does not expect to receive substantial
+compensating benefits for performance of the work. If this
+demonstration is made, cost sharing is not required but may be offered
+voluntarily. Reference also 2 CFR \S1800.922 and 14 CFR \S1274.204,
+(Costs and Payments), paragraph (b), Cost Sharing.
+
+Cost sharing is not required when a commercial organization receives a
+contract, but it may be offered voluntarily.
+
+
+6. Total Estimated Costs: Enter the total amount of funding requested
+   from the Government. 2.3.11(c) Other Budget Guidelines
+
+In preparing the Budget Justification (both Narrative and Details),
+proposers must consider the following additional important NASA
+procurement policies:
+
+(i) Purchase of Personal Computers and/or Software. Note the
+discussion of item "2.c. Equipment" on the Instructions above
+regarding the proposed purchase of personal computers and/or
+commercial software at or above \$5,000. Such items are usually
+considered by NASA to be general purpose equipment that must be
+purchased from general, organizational overhead(Indirect or F\&A)
+budgets and not directly from the proposal budget unless it can be
+demonstrated that such items are to be used uniquely and only for the
+proposed research. If a proposal is selected for award, failure to
+adequately address the requirements of the instructions for item 2.c
+above (Equipment) will require that NASA contact the proposing
+organization for the required information. Such activity may delay the
+award until the purchase is justified as a direct charge for
+general-purpose equipment to be used exclusively for the proposed
+research activities.
+
+(ii) Joint Proposals Involving a Mix of U.S. Government and
+Non-Government Organizations.
+
+(a) Unless otherwise specified in the FA, if a PI from any type of
+private or public organization proposes to team with a Co-I from
+and/or use a facility at a U.S. Government organization (including
+NASA Centers and the Jet Propulsion Laboratory), the budget for the
+proposal must include all funding requested from NASA for the proposed
+investigation, and this must be reflected in the budget totals that
+appear in the budget forms (e.g., Proposal Cover Page, Grants.gov
+forms, Budget Details). Any required budget for that Government Co-I
+and/or facility should be included in the proposal's Budget Narrative
+and should be listed as "Other Applicable Costs" in the required
+Budget Details. If the proposal is selected, NASA will execute an
+inter- or intra-Agency transfer of funds, as appropriate, to cover the
+applicable costs at that Government organization.
+
+(b) If a PI from a U.S. Government organization (including NASA
+Centers and the Jet Propulsion Laboratory) proposes to team with a
+Co-I from a non-Government organization, then the proposing Government
+organization must cover those Co-I costs through an appropriate award
+for which that Government PI organization is responsible. Such
+non-Government Co-I costs should be entered as a
+"Subcontract/Subaward" on the Budget Summary.
+
+(c) If a PI from a non-U.S. organization proposes to team with a Co-I
+from a U.S. organization then reference part (vii) below.
+
+(iii) Responsibility of the Proposing Organization to Place Subawards
+for Co-Is at Other Organizations. Other than the special cases
+discussed in item (ii) above, and unless specifically noted otherwise
+in the FA, the proposing PI organization must subcontract the funding
+of all proposed Co-Is who reside at other non-Government
+organizations, even though this may result in a higher proposal cost
+because of subcontracting fees.
+
+(iv) Full-Cost Accounting at NASA Centers. Regardless of whether
+functioning as a team lead or as a team member, personnel from NASA
+Centers must propose budgets based on full-cost accounting. Proposal
+budgets from NASA Centers must include all costs that will be paid out
+of the resulting award. Costs which will not be paid out of the
+resulting award, but are paid from a separate NASA budget (e.g.,
+Center Management and Operations, CM\&O) and are not based on the
+success of this specific award, should not be included in the proposal
+budget. For example, CM\&O should not be included in the proposal
+budget while direct civil service labor, travel, service pools, and
+other charges to the proposed research task should be
+included. Proposal budgets having JPL participation should include all
+costs except the JPL fixed-fee (formerly JPL award fee).
+
+(v) Unallowable Costs. Subpart E, Cost Principles, 2 CFR \S200.400, et
+seq., and the Federal Acquisition Regulation (FAR) at 48 CFR Part 31
+\url{https://acquisition.gov/far/current/html/FARTOCP31.html}), identify and
+describe certain costs that may not be included in a proposed budget
+(unallowable costs). The use of appropriated funds for such purposes
+is unallowable and may lead to cancellation of the award and possible
+criminal charges. Grant recipients should be aware of cost principles
+applicable to their organization as set forth in the above
+regulations.
+
+Payment of fee or profit is consistent with an activity whose
+principal purpose is the acquisition of goods and services for the
+direct benefit or use of the United States Government, rather than an
+activity whose principal purpose is assistance. Therefore, the Grants
+Officer shall use a procurement contract, rather than assistance
+instrument, in all cases where fee or profit is to be paid to the
+recipient of the instrument or the instrument is to be used to carry
+out a program where fee or profit is necessary to achieving program
+objectives. Grants and Cooperative Agreements shall not provide for
+the payment of fee or profit to the recipient.
+
+(vi) Prohibition of the Use of NASA Funds for
+Non-U.S. Research. NASA's policy welcomes the opportunity to conduct
+research with non-U.S. organizations on a cooperative, no-
+exchange-of-funds basis. Although Co-Is or collaborators employed by
+non-U.S. organizations may be identified as part of a proposal
+submitted by a U.S. organization, NASA funding may not typically be
+used to support research efforts by non-U.S. organizations at any
+level, including travel by foreign investigators. However, the direct
+purchase of supplies and/or services that do not constitute research
+from non-U.S. sources by U.S. award recipients is
+permitted. Ref. Section (l) of Appendix B. Also reference paragraph
+(c)(8)(iv) of Appendix B which states in part, ``NASA funding may not
+be used for foreign research efforts at any level, whether as a
+collaborator or a subcontract. The direct purchase of supplies and/or
+services, which do not constitute research, from non-U.S. sources by
+U.S. award recipients is permitted.''
+
+(vii) Proposals from non-U.S. PI organizations that propose the
+funding of U.S. Co-Is. A proposal submitted by a non-U.S. organization
+that involves U.S. Co-Is for whom NASA funding is requested must
+provide the budgets for those U.S. Co-Is in compliance with all
+applicable provisions in this Section 2.3.10. The budget should
+identify the U.S. Co-I organization to which funding will be
+awarded. In addition, compliance is required by the proposing
+non-U.S. organization with the provisions of Section (l) of Appendix
+B.
+
+(viii) Scholarships and student aid costs. If selected, proposers must comply with the policy of the Office of Management and Budget set out in 2 CFR \S200.466, Scholarships and student aid costs. To ensure compliance with this policy, proposers must affirm in their
+proposals the
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Special Notifications and/or Certifications
+
+\cleardoublepage
+
+\section*{Special Notifications and/or Certifications}
+\addcontentsline{toc}{section}{Special Notifications and/or Certifications}
+%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Table of Personnel and Work Effort
+
+\cleardoublepage
+
+\section*{Table of Personnel and Work Effort}
+\addcontentsline{toc}{section}{Table of Personnel and Work Effort}
+%%
+2.3.13 Table of Personnel and Work Effort
+
+Please note that this section does not apply to proposals resulting in
+contracts. The Table of Personnel and Work Effort summarizes the work
+effort required to perform the proposed investigation, should it be
+selected. The table must include the names and/or titles of all
+personnel necessary to perform the proposed effort, regardless of
+whether they require funding. Where names are not known, include the
+position, such as postdoc or technician. For each individual, list the
+planned work to be funded by NASA, per period in fractions of a work
+year. In addition, for each individual, include planned work not
+funded by NASA, if applicable. This planned work not funded by NASA is
+not considered cost sharing as defined in 2 CFR \S 200.29. The Table of
+Personnel and Work Effort should include only those resources that are
+directly applicable to the proposed research effort and should not
+include technical information that belongs in the
+Scientific/Technical/ Management Section. The detailed budget section
+must still include the work effort being paid by NASA.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Small Business Subcontracting Plan
+
+\cleardoublepage
+
+\section*{Small Business Subcontracting Plan}
+\addcontentsline{toc}{section}{Small Business Subcontracting Plan}
+%%
+2.3.14 Subcontracting plans
+
+As set out in subparagraph (a)(4) of Appendix B, any proposal from a
+large business concern that may result in the award of a contract,
+which exceeds \$5,000,000 and has subcontracting possibilities should
+include a small business subcontracting plan in accordance with the
+clause at FAR 52.219-9, Small Business Subcontracting
+Plan. Subcontract plans for contract awards below \$5,000,000 will be
+negotiated after selection.
+
+
+\end{document}

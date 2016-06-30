@@ -1,0 +1,13 @@
+This is a basic template latex file for NSF proposals.  It contains a
+skeleton proposal file with relevant instructions from the 2015 [[http://www.hq.nasa.gov/office/procurement/nraguidebook/proposer2015.pdf][NASA
+"Guidebook for Proposers"]].  I did my best to make sure this is
+accurate, but it is of course your responsibility to ensure your
+proposal meets the requirements.
+
+The formatting is pretty basic and doesn’t really call for a latex
+style file.  The only annoying part is making the table of contents
+work out correctly.  Starting out with a skeleton file like this and
+filling it in as you go is also an easy way to be sure you have all
+the required sections.
+
+You can check out the sample in the example/ directory.
